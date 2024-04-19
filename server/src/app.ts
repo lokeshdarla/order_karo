@@ -3,6 +3,7 @@ import cors from "cors"
 import { Request, Response } from 'express';
 import CustomerRouter from "./Routes/Customer";
 import LoginRouter from "./Routes/CustomerLogin";
+import OutletRouter from "./Routes/Outlet";
 
 
 const app = express()
@@ -15,5 +16,6 @@ app.get('/', (req: Request, res: Response) => {
 
 app.use('/customers', CustomerRouter);
 app.use('/login', LoginRouter)
+app.use('/outlet', OutletRouter)
 
 export { app }
