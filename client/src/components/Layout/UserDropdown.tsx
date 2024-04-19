@@ -10,6 +10,7 @@ import {
 // import { useAuth } from '@/hooks/useAuth'
 import { LogOut } from 'lucide-react'
 import Image from 'next/image'
+import Link from 'next/link';
 import { FaCubesStacked } from "react-icons/fa6";
 
 export const UserDropdown = () => {
@@ -47,10 +48,10 @@ export const UserDropdown = () => {
       <DropdownMenuContent className="w-56">
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => console.log("Hello world")}>
+        <Link href={'/orders'} className='flex text-base hover:bg-gray-50 p-2'>
           <FaCubesStacked className="mr-2 h-4 w-4" />
           <span>Orders</span>
-        </DropdownMenuItem>
+        </Link>
         <DropdownMenuItem onClick={() => console.log("Hello world")}>
           <LogOut className="mr-2 h-4 w-4" />
           <span>Log out</span>
