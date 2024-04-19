@@ -18,12 +18,15 @@ export function Header() {
           </Button>
         </div>
         <div className="flex w-full items-center justify-center md:justify-start">
-          <Image
-            height={36}
-            width={36}
-            src="/logo.svg"
-            alt="SRM AP Logo"
-          />
+          <Link href={'/'}>
+            <Image
+              height={36}
+              width={36}
+              src="/logo.svg"
+              alt="SRM AP Logo"
+            />
+          </Link>
+
         </div>
         <div className="flex w-full items-center gap-8 justify-end">
           <div>
