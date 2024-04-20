@@ -31,7 +31,7 @@ export function RestaurantCard() {
         <div>
           <p className="text-sm text-blue-700 hover:underline hover:cursor-pointer">Food Ready will be in 15 </p>
         </div>
-        <Link href='/restaurant' >        <Button variant="outline">Order Now</Button></Link>
+        <Link href='/customer/restaurant' >        <Button variant="outline">Order Now</Button></Link>
 
       </CardFooter>
     </Card>

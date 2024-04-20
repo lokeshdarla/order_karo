@@ -2,23 +2,33 @@
 import React, { FC, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import axios from 'axios';
+import { toast } from "@/components/ui/use-toast"
+import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 
 const Page: FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const router = useRouter();
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     try {
-      console.log(email, password)
+      console.log(email, password);
       const response = await axios.post('http://localhost:8000/login', {
         email,
         password,
       });
       console.log('Login response:', response.data);
+      const token = response.data.token;
+      const username = response.data.username;
+      localStorage.setItem('accessToken', token);
+      router.push('/customer')
+      toast({
+        title: "Login Successful",
+        description: `Welcome back ${username}`,
+      });
     } catch (error) {
       console.error('Error logging in:', error);
     }
@@ -34,7 +44,7 @@ const Page: FC = () => {
             src="/logo.svg"
             alt="SRM AP Logo"
           />
-          UniDeliv
+          UniCart
         </a>
         <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
@@ -78,7 +88,7 @@ const Page: FC = () => {
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
-              <Button className='w-full' variant='outline' type='submit'>
+              <Button variant={'outline'} type='submit'>
                 Login
               </Button>
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">

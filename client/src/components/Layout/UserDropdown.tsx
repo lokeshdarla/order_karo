@@ -7,14 +7,14 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-// import { useAuth } from '@/hooks/useAuth'
+import { useAuth } from '@/hooks/useAuth'
 import { LogOut } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link';
 import { FaCubesStacked } from "react-icons/fa6";
 
 export const UserDropdown = () => {
-  // const { user, logout } = useAuth()
+  const { user, logout } = useAuth()
 
   return (
     <DropdownMenu>
@@ -48,11 +48,11 @@ export const UserDropdown = () => {
       <DropdownMenuContent className="w-56">
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <Link href={'/orders'} className='flex text-base hover:bg-gray-50 p-2'>
+        <Link href={'/customer/orders'} className='flex text-base hover:bg-gray-50 p-2'>
           <FaCubesStacked className="mr-2 h-4 w-4" />
           <span>Orders</span>
         </Link>
-        <DropdownMenuItem onClick={() => console.log("Hello world")}>
+        <DropdownMenuItem onClick={logout}>
           <LogOut className="mr-2 h-4 w-4" />
           <span>Log out</span>
         </DropdownMenuItem>
