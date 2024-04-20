@@ -1,8 +1,8 @@
 import express, { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import CustomerModel, { Customer } from '../models/Customer';
-
+import CustomerModel from '../models/Customer';
+import { Customer } from '../models/Customer';
 const LoginRouter = express.Router();
 
 

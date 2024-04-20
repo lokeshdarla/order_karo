@@ -12,7 +12,7 @@ const CustomerSchema: Schema = new Schema({
     type: String,
     required: true
   },
-  email: {
+  gmail: {
     type: String,
     required: true,
     unique: true,

@@ -4,6 +4,7 @@ import { Request, Response } from 'express';
 import CustomerRouter from "./Routes/Customer";
 import LoginRouter from "./Routes/CustomerLogin";
 import OutletRouter from "./Routes/Outlet";
+import InventoryRouter from "./Routes/InventoryRouter";
 
 
 const app = express()
@@ -17,5 +18,6 @@ app.get('/', (req: Request, res: Response) => {
 app.use('/customers', CustomerRouter);
 app.use('/login', LoginRouter)
 app.use('/outlet', OutletRouter)
+app.use('/inventory', InventoryRouter)
 
 export { app }
