@@ -14,10 +14,10 @@ export const loginCustomer = async (req: Request, res: Response) => {
     const { email, password } = req.body;
     const customer: Customer | null = await CustomerModel.findOne({ email });
     if (customer && await bcrypt.compare(password, customer.password)) {
-      const token = jwt.sign({ id: customer._id, role: 'customer' }, JWT_SECRET, {
+      const token = jwt.sign({ id: customer._id, role: 'customer', username: customer.username, email: customer.email }, JWT_SECRET, {
         expiresIn: '1h',
       });
-      res.status(200).json({ token });
+      res.status(200).json({ token, username: customer.username });
     } else {
       res.status(401).json({ error: 'Invalid email or password' });
     }
