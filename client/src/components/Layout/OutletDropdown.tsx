@@ -7,14 +7,14 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-// import { useAuth } from '@/hooks/useAuth'
+import { useAuth } from '@/hooks/useAuth'
 import { LogOut } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link';
 import { FaCubesStacked } from "react-icons/fa6";
 
 export const OutletDropdown = () => {
-  // const { user, logout } = useAuth()
+  const { user, logout } = useAuth()
 
   return (
     <DropdownMenu>

@@ -1,24 +1,17 @@
-import Layout from '@/components/Layout/Layout'
-import { CarouselHome } from '@/components/home/HomeCarousel'
-import { RestaurantCard } from '@/components/home/RestaurantCard'
-import React from 'react'
+'use client'
 
-const page = () => {
-  return (
-    <Layout>
-      <div>
-        <div className='pt-16'>
-          <div className="flex flex-col items-center justify-center explore_events p-2 gap-2 ">
-            <RestaurantCard />
-            <RestaurantCard />
-          </div>
-        </div>
+import { LoadingState } from '@/components/common/LoadingState'
+import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
 
+export default function Home() {
+  const router = useRouter()
 
-      </div>
-    </Layout>
+  useEffect(() => {
+    setTimeout(() => {
+      router.push('/login')
+    }, 2000)
+  }, [router])
 
-  )
+  return <LoadingState />
 }
-
-export default page
