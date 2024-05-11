@@ -16,7 +16,7 @@ const Page: FC = () => {
     event.preventDefault();
     try {
       console.log(email, password);
-      const response = await axios.post('http://localhost:8000/login', {
+      const response = await axios.post('http://localhost:8000/login/customer', {
         email,
         password,
       });
