@@ -1,8 +1,36 @@
-import React, { FC } from 'react';
+'use client'
+import React, { FC, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { toast } from '@/components/ui/use-toast';
+import axios from 'axios';
+import { useRouter } from 'next/navigation';
 
 const Page: FC = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const router = useRouter();
+
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    try {
+      const response = await axios.post('http://localhost:8000/login/outlet', {
+        email,
+        password,
+      });
+      console.log('Login response:', response.data);
+      const token = response.data.token;
+      const username = response.data.username;
+      localStorage.setItem('accessToken', token);
+      router.push('/outlet')
+      toast({
+        title: "Login Successful",
+        description: `Welcome back ${username}`,
+      });
+    } catch (error) {
+      console.error('Error logging in:', error);
+    }
+  };
   return (
     <section className="bg-gray-50 dark:bg-gray-900">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
@@ -32,6 +60,7 @@ const Page: FC = () => {
                   type="email"
                   name="email"
                   id="email"
+                  onChange={(e) => setEmail(e.target.value)}
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="name@company.com"
                   required
@@ -48,6 +77,7 @@ const Page: FC = () => {
                   type="password"
                   name="password"
                   id="password"
+                  onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   required
@@ -79,7 +109,8 @@ const Page: FC = () => {
               </div>
               <button
                 type="submit"
-                className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                onClick={handleSubmit}
+                className="w-full border  bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
               >
                 Sign in
               </button>

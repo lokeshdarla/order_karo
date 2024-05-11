@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import CustomerModel from '../models/Customer';
 import { Customer } from '../models/Customer';
+import OutletModel from '../models/Outlet';
 const LoginRouter = express.Router();
 
 
@@ -26,5 +27,23 @@ export const loginCustomer = async (req: Request, res: Response) => {
   }
 };
 
-LoginRouter.post('/', loginCustomer);
+export const loginOutlet = async (req: Request, res: Response) => {
+  try {
+    const { email, password } = req.body;
+    const customer: Customer | null = await OutletModel.findOne({ email });
+    if (customer && await bcrypt.compare(password, customer.password)) {
+      const token = jwt.sign({ id: customer._id, role: 'customer', username: customer.username, email: customer.email }, JWT_SECRET, {
+        expiresIn: '1h',
+      });
+      res.status(200).json({ token, username: customer.username });
+    } else {
+      res.status(401).json({ error: 'Invalid email or password' });
+    }
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to login customer' });
+  }
+};
+
+LoginRouter.post('/customer', loginCustomer);
+LoginRouter.post('/outlet', loginOutlet);
 export default LoginRouter;
